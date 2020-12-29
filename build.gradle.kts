@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "eu.mikroskeem"
-version = "0.0.5-SNAPSHOT"
+version = "0.0.4.999-jploot-rc1"
 
 val checkerQualVersion = "2.9.0"
 val mavenMetaVersion = "3.6.1"
@@ -159,6 +159,17 @@ publishing {
             maven("https://repo.wut.ee/repository/mikroskeem-repo").credentials {
                 username = rootProject.properties["wutee.repository.deploy.username"]!! as String
                 password = rootProject.properties["wutee.repository.deploy.password"]!! as String
+            }
+        } else if (rootProject.hasProperty("jploot.repository.deploy.username") && rootProject.hasProperty("jploot.repository.deploy.password")) {
+            maven("https://api.bintray.com/maven/jploot/jploot/jploot/;publish=1").credentials {
+                username = rootProject.properties["jploot.repository.deploy.username"]!! as String
+                password = rootProject.properties["jploot.repository.deploy.password"]!! as String
+            }
+        } else {
+            var url = if (System.getenv().containsKey("RELEASE")) "http://localhost:8081/repository/jploot-releases/" else "http://localhost:8081/repository/jploot-snapshots/"
+            maven(url).credentials {
+                username = "admin"
+                password = "admin"
             }
         }
     }
