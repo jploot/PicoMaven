@@ -161,7 +161,7 @@ publishing {
                 password = rootProject.properties["wutee.repository.deploy.password"]!! as String
             }
         } else if (rootProject.hasProperty("jploot.repository.deploy.username") && rootProject.hasProperty("jploot.repository.deploy.password")) {
-            maven("https://api.bintray.com/maven/jploot/jploot/PicoMaven/;publish=1").credentials {
+            maven("https://nexus.tools.kobalt.fr/repository/jploot/").credentials {
                 username = rootProject.properties["jploot.repository.deploy.username"]!! as String
                 password = rootProject.properties["jploot.repository.deploy.password"]!! as String
             }
